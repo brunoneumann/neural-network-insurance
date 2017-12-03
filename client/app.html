@@ -3,8 +3,8 @@
         <!-- Main jumbotron for a primary marketing message or call to action -->
         <div class="jumbotron">
             <div class="container">
-                <h2 class="display-3">Neural Network for Insurance</h2>
-                <p>This app is intended for the work of the Artificial Intelligence discipline of Univates.</p>
+                <h2 class="display-3">Neural Network for Health Insurance</h2>
+                <p>This app is intended for the work of the Artificial Intelligence discipline of Univates. It tests what kind of health insurance is the correct for person.</p>
             </div>
         </div>
         <div class="container">
@@ -22,16 +22,23 @@
                     <input type="number" class="form-control" id="hiddenLayers" placeholder="Enter the internal hidden layers size" required>
                 </div>
                 <p>
-                    <span class="btn btn-primary btn-file btn-lg">Training file »<input id="fileInput" type="file"></span>
+                    <span id="fileInputButton" class="btn btn-primary btn-file btn-lg disabled">Training file »<input id="fileInput" type="file" disabled></span>
                 </p>
-                {{#if loaded}}
+                {{#if loaded}} {{#if error}}
+                <div class="alert alert-danger" role="alert" style="margin-top: 20px">
+                    Invalid file format!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{else}}
                 <div class="alert alert-info" role="alert" style="margin-top: 20px">
                     Network trained with {{rows}} registers.
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                {{/if}}
+                {{/if}} {{/if}}
             </div>
             <form class="test-neural-network">
                 <div class="my-panel" style="margin-top: 20px">
@@ -39,18 +46,111 @@
                         <p style="font-size: 24px">
                             Testing
                         </p>
-                        <label for="valueTest">Value:</label>
-                        <input type="text" class="form-control" id="valueTest" placeholder="Enter value for test" required>
+                        <label for="age">Age:</label>
+                        <input type="text" class="form-control" id="age" placeholder="Enter age" required>
                     </div>
+                    <label>Gender:</label>
+                    <div class="flex">
+                        <div class="form-check">
+                            <label class="form-check-label margin-right-10">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="1" checked> Male
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="0"> Female
+                            </label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <label class="margin-top-10">Physical activities:</label>
+                    <div class="flex">
+                        <div class="form-check">
+                            <label class="form-check-label margin-right-10">
+                                <input class="form-check-input" type="radio" name="physic" id="physic_yes" value="1" checked> Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="physic" id="physic_no" value="0"> No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <label class="margin-top-10">Smoker:</label>
+                    <div class="flex">
+                        <div class="form-check">
+                            <label class="form-check-label margin-right-10">
+                                <input class="form-check-input" type="radio" name="smoker" id="smoker_yes" value="1" checked> Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="smoker" id="smoker_no" value="0"> No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <label class="margin-top-10">Disease:</label>
+                    <div class="flex">
+                        <div class="form-check">
+                            <label class="form-check-label margin-right-10">
+                                <input class="form-check-input" type="radio" name="disease" id="disease_yes" value="1" checked> Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="disease" id="disease_no" value="0"> No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <label class="margin-top-10">Risk work:</label>
+                    <div class="flex">
+                        <div class="form-check">
+                            <label class="form-check-label margin-right-10">
+                                <input class="form-check-input" type="radio" name="risk" id="risk_yes" value="1" checked> Yes
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="radio" name="risk" id="risk_no" value="0"> No
+                            </label>
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+                    <br/>
+                    <br/>
+                    <!--{{#if loaded}}
+                    {{#unless error}}-->
                     <button type="submit" class="btn btn-primary btn-lg">Execute</button>
+                    <!--{{/unless}}
+                    {{/if}}-->
                 </div>
             </form>
             {{#if result}}
+            <div class="bs-callout bs-callout-primary">
+                <h3>Result logs</h3>
+                <br/>
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Input array</li>
+                    {{#each input}}
+                    <li class="list-group-item">{{this}}</li>
+                    {{/each}}
+                </ul>
+                <ul class="list-group">
+                    <li class="list-group-item text-muted">Output array</li>
+                    {{#each output}}
+                    <li class="list-group-item">{{this}}</li>
+                    {{/each}}
+                </ul>
+                <br/>
+            </div>
             <div class="bs-callout bs-callout-success">
-                <h3>Results</h3> {{result}}
+                <h3>Best insurance plan <span class="font-normal">({{insurance.percent}}%)</span></h3>
+                <h4 class="text-info">&#x2192;&nbsp;{{insurance.name}}</h4>
             </div>
             {{/if}}
-
             <div style="height: 50px"></div>
         </div>
         <!-- /container -->

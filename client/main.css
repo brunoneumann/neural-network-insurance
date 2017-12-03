@@ -5,6 +5,13 @@
     }
 }
 
+.font-small {
+    font-size: 13px;
+}
+.font-normal {
+    font-size: 14px;
+}
+
 .width-full {
     width: 100%;
 }
@@ -59,9 +66,6 @@
 .bs-callout-primary {
     border-left-color: #428bca;
 }
-.bs-callout-primary h3 {
-    color: #428bca;
-}
 .bs-callout-success {
     border-left-color: #5cb85c;
 }
@@ -71,4 +75,23 @@
 }
 .bs-callout-danger h3 {
     color: #d9534f;
+}
+
+.flex {
+    display: flex;
+}
+.margin-right-10 {
+    margin-right: 10px;
+}
+.margin-top-5 {
+    margin-top: 5px;
+} 
+.margin-top-10 {
+    margin-top: 10px;
+} 
+.divider {
+    height: 0.5px;
+    margin: .5rem 0;
+    overflow: hidden;
+    border-top: 1px solid #e9ecef;
 }

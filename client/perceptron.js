@@ -1,6 +1,6 @@
 /*jshint esversion: 6*/
 const synaptic = require('synaptic');
-const { Layer, Network } = synaptic;
+const { Layer, Network } = require('synaptic');
 
 Perceptron = function(input, hidden, output) {
 	// create the layers
