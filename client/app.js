@@ -138,30 +138,32 @@ trainNetwork = function(data, instance) {
 
     var error = false;
     var rows = 0;
-    //for (var r = 0; r < 10000; r++) {
-    for (var i = 0; i < s.length; i++) {
+    for (var r = 0; r < 100; r++) {
+        for (var i = 0; i < s.length; i++) {
 
-        if (s[i]) {
-            if (testColumns(s[i])) {
-                var num = s[i].split(';').map(Number);
+            if (s[i]) {
+                if (testColumns(s[i])) {
+                    var num = s[i].split(';').map(Number);
 
-                myNetwork.activate([num[0], num[1], num[2], num[3], num[4], num[5], num[6], num[7], num[8], num[9], num[10], num[11]]);
+                    myNetwork.activate([num[0], num[1], num[2], num[3], num[4], num[5], num[6], num[7], num[8], num[9], num[10], num[11]]);
 
-                myNetwork.propagate(learningRate, [
-                    num[12], // Basic
-                    num[13], // Intermediary
-                    num[14], // Complete
-                ]);
+                    myNetwork.propagate(learningRate, [
+                        num[12], // Basic
+                        num[13], // Intermediary
+                        num[14], // Complete
+                    ]);
 
-                rows++;
+                    if (r === 0) {
+                        rows++;
+                    }
 
-            } else {
-                error = true;
-                break;
+                } else {
+                    error = true;
+                    break;
+                }
             }
         }
     }
-    //}
 
     if (error) {
         instance.set("error", true);
@@ -196,11 +198,11 @@ resultLogs = function(results) {
     return logs;
 };
 
-bestInsurance = function(results){
+bestInsurance = function(results) {
     var best = 0;
     var index = 0;
     for (var i = 0; i < results.length; i++) {
-        if(results[i]>best){
+        if (results[i] > best) {
             best = results[i];
             index = i;
         }
@@ -208,16 +210,20 @@ bestInsurance = function(results){
     var obj = {
         result: best,
         name: getNameInsurance(index),
-        percent: Math.round((best*100))
+        percent: Math.round((best * 100))
     };
     return obj;
 };
 
-getNameInsurance = function(index){
-    switch(index){
-        case 0: return "Basic";
-        case 1: return "Intermediary";
-        case 2: return "Complete";
-        default: return "";
+getNameInsurance = function(index) {
+    switch (index) {
+        case 0:
+            return "Basic";
+        case 1:
+            return "Intermediary";
+        case 2:
+            return "Complete";
+        default:
+            return "";
     }
 };
